@@ -1,1 +1,7 @@
-samediff/exp
+samediff/exp/
+
+features/lists/
+features/mfcc/
+features/wav/
+features/__pycahce/
+
