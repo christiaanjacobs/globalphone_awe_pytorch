@@ -1,1 +1,2 @@
-# globalphone_awe_pytorch
+# Multilingual Acoustic Word Embeddings on Globalphone
+======================================================
