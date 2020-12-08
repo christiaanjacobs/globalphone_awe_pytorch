@@ -24,7 +24,7 @@ To install `speech_dtw` (required for same-different evaluation) and `shorten`
 You can install all the other dependencies in a conda environment by running:
 
     conda env create -f environment.yml
-    conda activate tf1.13
+    conda activate pyt1.4
 
 ## Extract speech features
 
