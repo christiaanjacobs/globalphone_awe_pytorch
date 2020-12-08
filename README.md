@@ -8,6 +8,24 @@
 
 ## Install dependencies
 
+You will require the following:
+
+- [Python 3](https://www.python.org/downloads/)
+- [TensorFlow 1.13.1](https://www.tensorflow.org/)
+- [LibROSA](http://librosa.github.io/librosa/)
+- [Cython](https://cython.org/)
+- [tqdm](https://tqdm.github.io/)
+- [speech_dtw](https://github.com/kamperh/speech_dtw/)
+- [shorten](http://etree.org/shnutils/shorten/dist/src/shorten-3.6.1.tar.gz)
+
+To install `speech_dtw` (required for same-different evaluation) and `shorten`
+(required for processing audio), run `./install_local.sh`.
+
+You can install all the other dependencies in a conda environment by running:
+
+    conda env create -f environment.yml
+    conda activate tf1.13
+
 ## Extract speech features
 
 Update the paths in `paths.py` to point to the data directories. Extract MFCC
