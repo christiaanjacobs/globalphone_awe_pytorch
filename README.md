@@ -6,6 +6,12 @@
 
 ## Download datasets
 
+The [GlobalPhone](https://csl.anthropomatik.kit.edu/english/globalphone.php)
+corpus and forced alignments of the data needs to be obtained. GlobalPhone
+needs to be paid for. If you have proof of payment, we can give you access to
+the forced alignments. Save the data and forced alignments in a separate
+directory and update the `paths.py` file to point to the data directories.
+
 ## Install dependencies
 
 You will require the following:
