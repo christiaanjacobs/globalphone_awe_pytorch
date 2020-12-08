@@ -11,7 +11,7 @@
 You will require the following:
 
 - [Python 3](https://www.python.org/downloads/)
-- [TensorFlow 1.13.1](https://www.tensorflow.org/)
+- [PyTorch](https://pytorch.org/)
 - [LibROSA](http://librosa.github.io/librosa/)
 - [Cython](https://cython.org/)
 - [tqdm](https://tqdm.github.io/)
