@@ -32,7 +32,7 @@ Train a CAE-RNN on Spanish ground truth segments:
  the maximum number of types per language and requiring a minimum number of tokens per type.
  
     ./train_ae_cae_rnn.py --pretrain True --n_max_pairs 300000 /
-        --n_min_tokens_per_type 2 --n_max_types 1000 ---ae_n_epochs 15 /
+        --n_min_tokens_per_type 2 --n_max_types 1000 --ae_n_epochs 15 /
         --cae_n_epochs 10 --train_tag gt --val_lang GE RU+CZ+FR+PL+TH+PO
 
 ## Siamese RNN
