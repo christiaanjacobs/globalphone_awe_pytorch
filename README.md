@@ -2,6 +2,8 @@
 
 ## Overview
 
+PyTorch implementation of multilingual acoustic word embedding approaches. The experiments are described in C. Jacobs, H. Kamper, and Y. Matusevych, "Acoustic word embeddings for zero-resource languages using self-supervised contrastive learning and multilingual adaptation" ...
+
 ## Disclaimer
 
 ## Download datasets
