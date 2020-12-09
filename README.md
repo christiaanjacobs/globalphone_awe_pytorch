@@ -19,7 +19,7 @@ directory and update the `paths.py` file to point to the data directories.
 You will require the following:
 
 - [Python 3](https://www.python.org/downloads/)
-- [PyTorch](https://pytorch.org/)
+- [PyTorch 1.4](https://pytorch.org/)
 - [LibROSA](http://librosa.github.io/librosa/)
 - [Cython](https://cython.org/)
 - [tqdm](https://tqdm.github.io/)
