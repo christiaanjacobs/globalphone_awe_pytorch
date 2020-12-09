@@ -18,3 +18,19 @@ Train a CAE-RNN on Spanish UTD segments:
     --cae_n_epochs 10 --ae_batch_size 300 --cae_batch_size 300 /
     --train_tag utd --val_lang SP SP
 
+Evaluate the model:
+    
+    ./apply_model.py ...
+
+Train a CAE-RNN on Spanish ground truth segments:
+
+    ./train_ae_cae_rnn.py --pretrain True --n_max_pairs 100000 /
+        --ae_n_epochs 25 --cae_n_epochs 10 --ae_batch_size 300 /
+        --cae_batch_size 300 --train_tag gt --val_lang SP SP
+        
+ Train a CAE-RNN jointly on multiple languages, limiting the maximum overall number of pairs,
+ the maximum number of types per language and requiring a minimum number of tokens per type.
+ 
+    ./train_ae_cae_rnn.py --pretrain True --n_max_pairs 300000 /
+        --n_min_tokens_per_type 2 --n_max_types 1000 ---ae_n_epochs 15 /
+        --cae_n_epochs 10 --train_tag gt --val_lang GE RU+CZ+FR+PL+TH+PO
