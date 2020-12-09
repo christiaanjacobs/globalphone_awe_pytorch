@@ -51,3 +51,12 @@ Train a Contrastive RNN jointly on multiple languages:
         --val_lang GE RU+CZ+FR+PL+TH+PO  
         
 ## Contrastive RNN with adaptation
+Adapt a Contrastive RNN model trained jointly on multiple languages to a specific zero resource
+language:
+
+    ./train_contrastive_rnn --load_model True /
+        --model_dir models/RU+CZ+FR+PL+TH+PO.gt/train_cae_rnn/8415c0ad94 /
+        --n_min_tokens_per_type 2 --n_minibatches 20 /
+        --learning_rate 0.0001 --shuffle True --train_tag utd /
+        --val_lang SP SP
+
