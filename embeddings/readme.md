@@ -34,3 +34,10 @@ Train a CAE-RNN on Spanish ground truth segments:
     ./train_ae_cae_rnn.py --pretrain True --n_max_pairs 300000 /
         --n_min_tokens_per_type 2 --n_max_types 1000 ---ae_n_epochs 15 /
         --cae_n_epochs 10 --train_tag gt --val_lang GE RU+CZ+FR+PL+TH+PO
+
+## Siamese RNN
+Train a Siamese RNN on ground truth segments:
+
+    ./train_siamese_rnn.py --margin 0.25 --n_epochs 25 /
+        --n_max_pairs 100000 --learning_rate 0.0005 /
+        --train_tag gt --val_lang SP SP
