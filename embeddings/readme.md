@@ -41,3 +41,12 @@ Train a Siamese RNN on ground truth segments:
     ./train_siamese_rnn.py --margin 0.25 --n_epochs 25 /
         --n_max_pairs 100000 --learning_rate 0.0005 /
         --train_tag gt --val_lang SP SP
+        
+## Contrastive RNN
+Train a Contrastive RNN jointly on multiple languages:
+
+    ./train_contrastive_rnn.py --n_max_pairs 300000 /
+        --n_min_tokens_per_type 2 --n_max_types 1000 /
+        --train_tag gt --val_lang GE RU+CZ+FR+PL+TH+PO  
+        
+## Contrastive RNN with adaptation
