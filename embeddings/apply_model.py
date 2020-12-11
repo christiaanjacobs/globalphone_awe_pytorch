@@ -117,7 +117,7 @@ def load_options_dict(options_dict_dir):
 
 if __name__ == '__main__':
 
-    model_types = ["classifier_rnn", "siamese_rnn", "ae_rnn", "cae_rnn", "encoder_rnn"]
+    model_types = ["siamese_rnn", "ae_rnn", "cae_rnn", "contrastive_rnn"]
     globalphone_langs = ["BG", "CH", "CR", "CZ", "FR", "GE", "HA", "KO","PL", "PO", "RU", "SP", "SW", "TH", "TU", "VN"]
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_dir', type=str)
