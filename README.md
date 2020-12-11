@@ -50,5 +50,5 @@ UTD pairs can also be analysed here, by running e.g.:
 
     ./analyse_utd_pairs.py SP
 ## Contributors
-    - [Christiaan Jacobs]
-    - [Herman Kamper] (http://www.kamperh.com/)
+    * [Christiaan Jacobs]
+    * [Herman Kamper](http://www.kamperh.com/)
