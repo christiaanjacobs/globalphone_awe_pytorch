@@ -55,7 +55,7 @@ Train a Contrastive RNN jointly on multiple languages:
         
 ## Contrastive RNN with adaptation
 Adapt a Contrastive RNN model trained jointly on multiple languages to a specific zero resource
-language:
+language limiting the minimum number of tokens per type and the number of batches used to update parameters, shuffled between epochs:
 
     ./train_contrastive_rnn --load_model True /
         --adapt_model_dir models/RU+CZ+FR+PL+TH+PO.gt/train_cae_rnn/8415c0ad94 /
