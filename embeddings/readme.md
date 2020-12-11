@@ -20,7 +20,10 @@ Train a CAE-RNN on Spanish UTD segments:
 
 Evaluate the model:
     
-    ./apply_model.py ...
+    ./apply_model.py --model_dir models/SP.utd/train_ae_cae_rnn/9455bfdae4 /
+    --model_type cae_rnn --val_lang SP
+    
+All the models trained below can be applied, evaluated and analysed using the script above.
 
 Train a CAE-RNN on Spanish ground truth segments:
 
