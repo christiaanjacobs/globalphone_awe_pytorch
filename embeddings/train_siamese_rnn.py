@@ -67,10 +67,10 @@ default_options_dict = {
         'n_min_tokens_per_type': None,         # if None, no filter is applied
         'n_max_tokens_per_type': None,
         'n_max_types': None,
+        'n_max_tokens': None,
         'rnd_seed': 1,
         'distance_metric': 'cosine',
         'load_model': False,
-        'adapt_model': "6 lingual",
         'save_best': True
 
     }
@@ -164,8 +164,7 @@ def main(options_dict):
         model = siamese_rnn(options_dict)
         model.to(device)
         
-        pretrained_model_dir = path.join("../train_siamese_rnn/models/RU+CZ+FR+PL+TH+PO.gt/95648ee1f0/")
-
+        pretrained_model_dir = path.join(options_dict['model_dir'])
         model_dir_fn = path.join(pretrained_model_dir, "final_model.pt")
 
         state = torch.load(model_dir_fn)
@@ -193,28 +192,18 @@ def main(options_dict):
         # Loss and optimization function
         optimizer = torch.optim.Adam(model.parameters(), lr=options_dict["learning_rate"])
 
-    # Load model from checkpoint
-#    if options_dict["resume"] == True:       
-#        start_epoch = load_checkpoint(model, optimizer) + 1
-#        print(start_epoch)
-#    else:
-#        start_epoch = 0
-
     # Save options dictionary before training
-#    if not options_dict["resume"]:
     save_options_dict(options_dict)
 
-   # Load record_dict
-   # Load record_dict or create new one
+
+   # Create record dict
     record_dict_fn = path.join(options_dict["model_dir"], "record_dict.pkl")
     
-#    if options_dict["resume"]:
-#        record_dict = load_record_dict(record_dict_fn)
-#    else:
     record_dict = {}
     record_dict["epoch_time"] = []
     record_dict["train_loss"] = []
     record_dict["validation_loss"] = []
+    
 
     best_val_loss = np.inf
     for epoch in range(options_dict["n_epochs"]):
@@ -344,7 +333,13 @@ def check_argv():
         "--save_best", type=bool, help="save best model after epoch(default: %(default)s)",
         default=default_options_dict["save_best"]
         )
-
+    parser.add_argument(
+        "--adapt_model_dir", type=str, help="directory of model to adapt"
+        )
+    parser.add_argument(
+        "--load_model", type=bool, help="use pretrained weights of multilingual model (default: %(default)s)",
+        default=default_options_dict["load_model"]
+        )
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
@@ -370,11 +365,10 @@ if __name__ == '__main__':
     options_dict["rnd_seed"] = args.rnd_seed
     options_dict["learning_rate"] = args.learning_rate
     options_dict["save_best"] = args.save_best
+    options_dict["load_model"] = args.load_model
+    options_dict["adapt_model_dir"] = args.adapt_model_dir    
     
-#    print(options_dict['learning_rate'])
-#    print(options_dict["save_best"])
-    
-#Model directory
+# Model directory
     model_dir = path.join('models', options_dict['train_lang'] + '.' + options_dict['train_tag'], "train_siamese_rnn")
     if not os.path.isdir(model_dir):
         os.makedirs(model_dir)
@@ -385,7 +379,6 @@ if __name__ == '__main__':
     if not os.path.isdir(model_dir):
         os.makedirs(model_dir)
     options_dict['model_dir'] = model_dir
-#    options_dict['resume'] = False   
 
     # Device configuration
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')  

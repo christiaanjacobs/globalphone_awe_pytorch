@@ -71,6 +71,7 @@ default_options_dict = {
         'n_min_tokens_per_type': None,         # if None, no filter is applied
         'n_max_tokens_per_type': None,
         'n_max_types': None,
+        'n_max_tokens': None,
         'n_minibatches': None,
         'rnd_seed': 1,
         'load_model': False, 
@@ -176,9 +177,7 @@ def main(options_dict):
         model = contrastive_rnn(options_dict)
         model.to(device)
         
-        pretrained_model_dir = path.join("models/RU+CZ+FR+PL+TH+PO.gt/8142ecc9a7/")
-        # pretrained_model_dir = path.join('../train_siamese_rnn/models/RU+CZ+FR.gt/d79375bead/')
-
+        pretrained_model_dir = path.join(options_dict["adapt_model_dir"])
         model_dir_fn = path.join(pretrained_model_dir, "final_model.pt")
 
         state = torch.load(model_dir_fn)
@@ -207,22 +206,12 @@ def main(options_dict):
         # Loss and optimization function
         optimizer = torch.optim.Adam(model.parameters(), lr=options_dict["learning_rate"])
 
-    # Load model from checkpoint
-    # if options_dict['resume'] == True:       
-    #     start_epoch = load_checkpoint(model, optimizer) + 1
-    #     print(start_epoch)
-    # else:
-    #     start_epoch = 0
 
     # Save options dictionary before training
-    # if not options_dict['resume']:
     save_options_dict(options_dict)
 
-    # Load record_dict or create new one
+    # Create record dict
     record_dict_fn = path.join(options_dict["model_dir"], "record_dict.pkl")
-    # if options_dict['resume']:
-    #     record_dict = load_record_dict(record_dict_fn)
-    # else:
     record_dict = {}
     record_dict["epoch_time"] = []
     record_dict["train_loss"] = []
@@ -368,6 +357,9 @@ def check_argv():
         "--save_best", type=bool, help="save best model after each epoch (default, %(default)s)",
         default=default_options_dict["save_best"]
         )
+    parser.add_argument(
+        "--adapt_model_dir", type=str, help="directory of model to adapt"
+        )
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -415,6 +407,7 @@ if __name__ == '__main__':
     options_dict["load_model"] = args.load_model
     options_dict["save_best"] = args.save_best    
     options_dict["shuffle"] = args.shuffle
+    options_dict["adapt_model_dir"] = args.adapt_model_dir
 
     #Model directory
     model_dir = path.join('models', options_dict['train_lang'] + '.' + options_dict['train_tag'], "train_contrastive_rnn")

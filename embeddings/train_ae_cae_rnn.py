@@ -189,7 +189,7 @@ def train(options_dict):
 
         # # Save options dictionary before training
         # if not options_dict['resume']:
-        #     save_options_dict(options_dict)
+        save_options_dict(options_dict)
 
         # # Load record_dict or create new one
         # record_dict_fn = path.join(options_dict['model_dir'], 'record_dict.pkl')
@@ -304,8 +304,8 @@ def train(options_dict):
         optimizer = torch.optim.Adam(model.parameters(), lr=options_dict['cae_learning_rate'])
         # optimizer.load_state_dict(state['optimizer'])
 
-    elif options_dict["load"]:
-        pretrained_model_dir = path.join('../models/RU+CZ+FR+PL+TH+PO.gt/train_cae_rnn/8415c0ad94')
+    elif options_dict["load_model"]:
+        pretrained_model_dir = path.join(options_dict["adapt_model_dir"])
         model_dir_fn = path.join(pretrained_model_dir, 'final_model.pt')
 
         # state = torch.load(model_dir_fn)
@@ -335,7 +335,7 @@ def train(options_dict):
         # Loss and optimization function
         criterion = nn.MSELoss()
         optimizer = torch.optim.Adam(model.parameters(), lr=options_dict['cae_learning_rate'])
-        optimizer.load_state_dict(state['optimizer'])
+#        optimizer.load_state_dict(state['optimizer'])
 
 
 
@@ -492,22 +492,13 @@ def check_argv():
         help="learning rate (default: %(default)s)",
         default=default_options_dict["cae_learning_rate"]
         )
-    # parser.add_argument(
-    #     "--pretrain_tag", type=str, choices=["gt", "utd", "rnd"],
-    #     help="pretraining set tag (default: %(default)s)",
-    #     default=default_options_dict["pretrain_tag"]
-    #     )
     parser.add_argument(
         "--bidirectional", action="store_true",
         help="use bidirectional encoder and decoder layers "
         "(default: %(default)s)",
         default=default_options_dict["bidirectional"]
         )
-    # parser.add_argument(
-    #     "--d_language_embedding", type=int,
-    #     help="dimensionality of language embedding (default: %(default)s)",
-    #     default=default_options_dict["d_language_embedding"]
-    #     )
+
     parser.add_argument(
         "--rnd_seed", type=int, help="random seed (default: %(default)s)",
         default=default_options_dict["rnd_seed"]
@@ -515,6 +506,13 @@ def check_argv():
     parser.add_argument(
         "--pretrain", type=bool, help="pretrain using AE-RNN (default: %(default)s)",
         default=default_options_dict["pretrain"]
+        )
+    parser.add_argument(
+        "--adapt_model_dir", type=str, help="directory of model to adapt"
+        )
+    parser.add_argument(
+        "--load_model", type=bool, help="use pretrained weights of multilingual model (default: %(default)s)",
+        default=default_options_dict["load_model"]
         )
 
     if len(sys.argv) == 1:
@@ -561,6 +559,8 @@ if __name__ == '__main__':
     options_dict["pretrain"] = args.pretrain
     options_dict["rnd_seed"] = args.rnd_seed
     options_dict["cae_learning_rate"] = args.cae_learning_rate
+    options_dict["load_model"] = args.load_model
+    options_dict["adapt_model_dir"] = args.adapt_model_dir
 
     print(options_dict["pretrain"])
 
